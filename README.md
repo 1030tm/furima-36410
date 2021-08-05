@@ -52,14 +52,15 @@
 
 ## deliveries テーブル
 
-| Column           | Type       | Option         |
-| ---------------- | ---------- | -------------- |
-| postal_code      | integer    | null: false    |
-| shipping_area_id | integer    | null: false    |
-| city             | string     | null: false    |
-| address          | string     | null: false    |
-| building         | string     |                |
-| tel              | string     | null: false    |
+| Column           | Type       | Option            |
+| ---------------- | ---------- | ----------------- |
+| postal_code      | string     | null: false       |
+| consignor_id     | integer    | null: false       |
+| city             | string     | null: false       |
+| address          | string     | null: false       |
+| building         | string     |                   |
+| tel              | string     | null: false       |
+| buy              | references | foreign_key: true |
 
 ### Association
-- has_one :buy
+- belongs_to :buy
