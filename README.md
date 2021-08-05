@@ -2,60 +2,64 @@
 
 ## users テーブル
 
-| Column             | Type   | Option      |
-| ------------------ | ------ | ----------- |
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| nickname           | string | null: false |
-| first_name         | string | null: false |
-| last_name          | string | null: false |
-| first_kana         | string | null: false |
-| last_kana          | string | null: false |
-| birthday           | date   | null: false |
+| Column             | Type   | Option                    |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nickname           | string | null: false               |
+| first_name         | string | null: false               |
+| last_name          | string | null: false               |
+| first_kana         | string | null: false               |
+| last_kana          | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
 - has_many :items
-- has_many :buy
+- has_many :buys
 
 ## items テーブル
 
-| Column           | Type       | Option         |
-| ---------------- | ---------- | -------------- |
-| image            |            | ActiveStorage  |
-| item_name        | string     | null: false    |
-| explanation      | text       | null: false    |
-| category         |            | null: false    | ActiveHash
-| condition        |            | null: false    | ActiveHash
-| postage          |            | null: false    | ActiveHash
-| consignor        |            | null: false    | ActiveHash
-| days             |            | null: false    | ActiveHash
-| price            | integer    | null: false    |
-| user_id          | references |                |
+| Column           | Type       | Option               |
+| ---------------- | ---------- | -------------------- |
+| item_name        | string     | null: false          |
+| explanation      | text       | null: false          |
+| category_id      | integer    | null: false          |
+| condition_id     | integer    | null: false          |
+| postage_id       | integer    | null: false          |
+| consignor_id     | integer    | null: false          |
+| day_id           | integer    | null: false          |
+| price            | integer    | null: false          |
+| user             | references | foreign_key: true    |
 
 ### Association
 
 - belongs_to :user
 - has_one :buy
 
-## buy テーブル
+## buys テーブル
 
-| Column           | Type       | Option         |
-| ---------------- | ---------- | -------------- |
-| user             | references |                |
-| item             | references |                |
+| Column           | Type       | Option               |
+| ---------------- | ---------- | -------------------- |
+| user             | references | foreign_key: true    |
+| item             | references | foreign_key: true    |
 
 ### Association
 
-- has_one :item
+- belongs_to :item
 - has_one :delivery
 - belongs_to :user
 
-## delivery テーブル
+## deliveries テーブル
 
 | Column           | Type       | Option         |
 | ---------------- | ---------- | -------------- |
-| shipping_area    |            | null: false    | ActiveHash
+| postal_code      | integer    | null: false    |
+| shipping_area_id | integer    | null: false    |
+| city             | string     | null: false    |
+| address          | string     | null: false    |
+| building         | string     |                |
+| tel              | string     | null: false    |
 
-- has_one :item
+### Association
 - has_one :buy
