@@ -23,5 +23,6 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :postage
   belongs_to :consignor
+  belongs_to :shipping_day
 
 end
