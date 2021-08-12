@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :item_name
     validates :explanation
-    validates :category_id
+    validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
     validates :condition_id
     validates :postage_id
     validates :consignor_id
@@ -13,5 +13,8 @@ class Item < ApplicationRecord
     validates :price
     validates :user
   end
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
 
 end
