@@ -14,7 +14,7 @@ class Item < ApplicationRecord
       validates :shipping_day_id
     end
 
-    validates :price
+    validates :price, numericality: [in: 300..9999999 ]
     validates :user
   end
 
