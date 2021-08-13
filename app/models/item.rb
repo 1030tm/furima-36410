@@ -14,7 +14,7 @@ class Item < ApplicationRecord
       validates :shipping_day_id
     end
 
-    validates :price, numericality: [in: 300..9999999 ]
+    validates :price, inclusion: [ in: 300..9999999 ], format: {with: /\A[0-9]+\z/, message: '半角数字を使用してください'}
     validates :user
   end
 
