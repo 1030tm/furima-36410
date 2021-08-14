@@ -56,22 +56,22 @@ RSpec.describe Item, type: :model do
       it 'userと紐づいていないと登録できない' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
       it 'priceが全角数字では登録できない' do
         @item.price = '１０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price before type cast 半角数字を使用してください")
+        expect(@item.errors.full_messages).to include('Price before type cast 半角数字を使用してください')
       end
       it 'priceが300円より少ない時は出品できない' do
         @item.price = '200'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it 'priceが9999999円より多い時は出品できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
     end
   end

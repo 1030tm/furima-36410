@@ -6,7 +6,7 @@ class Item < ApplicationRecord
     validates :item_name
     validates :explanation
 
-    with_options numericality: { other_than: 1 , message: "can't be blank"} do
+    with_options numericality: { other_than: 1, message: "can't be blank" } do
       validates :category_id
       validates :condition_id
       validates :postage_id
@@ -14,8 +14,8 @@ class Item < ApplicationRecord
       validates :shipping_day_id
     end
 
-    validates :price, inclusion: { in: 300..9999999 }
-    validates :price_before_type_cast, format: { with: /\A[0-9]+\z/, message: "半角数字を使用してください" }
+    validates :price, inclusion: { in: 300..9_999_999 }
+    validates :price_before_type_cast, format: { with: /\A[0-9]+\z/, message: '半角数字を使用してください' }
     validates :user
   end
 
@@ -25,5 +25,4 @@ class Item < ApplicationRecord
   belongs_to :postage
   belongs_to :consignor
   belongs_to :shipping_day
-
 end
