@@ -64,14 +64,24 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price before type cast 半角数字を使用してください')
       end
       it 'priceが300円より少ない時は出品できない' do
-        @item.price = '200'
+        @item.price = 200
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it 'priceが9999999円より多い時は出品できない' do
-        @item.price = '10000000'
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not included in the list')
+      end
+      it 'priceが英数字混合では出品できない' do
+        @item.price = '500en'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price before type cast 半角数字を使用してください')
+      end
+      it 'imageが空では出品できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
       end
     end
   end

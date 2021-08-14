@@ -17,6 +17,7 @@ class Item < ApplicationRecord
     validates :price, inclusion: { in: 300..9_999_999 }
     validates :price_before_type_cast, format: { with: /\A[0-9]+\z/, message: '半角数字を使用してください' }
     validates :user
+    validates :image, presence: true
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
