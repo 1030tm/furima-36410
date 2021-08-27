@@ -2,6 +2,7 @@ class BuysController < ApplicationController
   
   def index
     @item = Item.find(params[:item_id])
+    @sell_item = BuyDelivery.new(sell_item_params)
   end
 
   def create
