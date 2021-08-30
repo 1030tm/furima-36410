@@ -4,9 +4,7 @@ class BuysController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @sell_item = BuyDelivery.new
-    if current_user.id == @item.user_id || @item.buy.presence
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id || @item.buy.presence
   end
 
   def create
