@@ -33,7 +33,7 @@ RSpec.describe BuyDelivery, type: :model do
       it 'postal_codeが(3つの数字)-(4つの数字)の形でないと購入できない' do
         @sell_item.postal_code = '1234-567'
         @sell_item.valid?
-        expect(@sell_item.errors.full_messages).to include('Postal code -(ハイフン)を入力してください')
+        expect(@sell_item.errors.full_messages).to include('Postal code 3桁-4桁で入力してください')
       end
       it 'consignor_idが空だと購入できない' do
         @sell_item.consignor_id = ''
@@ -86,12 +86,12 @@ RSpec.describe BuyDelivery, type: :model do
         expect(@sell_item.errors.full_messages).to include("Token can't be blank")
       end
       it 'telが9桁以下だと登録できないこと' do
-        @sell_item.tel = '12345678'
+        @sell_item.tel = '123456789'
         @sell_item.valid?
         expect(@sell_item.errors.full_messages).to include('Tel -(ハイフン)を入力しないでください')
       end
       it 'telが電話番号が半角数字のみでないと登録できないこと' do
-        @sell_item.tel = '０１２３４５６７８９'
+        @sell_item.tel = 'abc1234567'
         @sell_item.valid?
         expect(@sell_item.errors.full_messages).to include('Tel -(ハイフン)を入力しないでください')
       end
