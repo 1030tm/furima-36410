@@ -1,9 +1,12 @@
 class BuysController < ApplicationController
-  before_action :sold_out_item, only: [:index]
+  before_action :authenticate_user!, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])
     @sell_item = BuyDelivery.new
+    if current_user.id == @item.user_id || @item.buy.presence
+      redirect_to root_path
+    end
   end
 
   def create
@@ -33,9 +36,5 @@ class BuysController < ApplicationController
       card: params[:token],
       currency: 'jpy'
     )
-  end
-
-  def sold_out_item
-    redirect_to root_path if @item.buy_delivery.present?
   end
 end
