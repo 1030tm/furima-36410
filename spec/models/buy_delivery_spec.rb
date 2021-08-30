@@ -28,7 +28,7 @@ RSpec.describe BuyDelivery, type: :model do
       it 'postal_codeに - がないと購入できない' do
         @sell_item.postal_code = '1234567'
         @sell_item.valid?
-        expect(@sell_item.errors.full_messages).to include('Postal code -(ハイフン)を入力してください')
+        expect(@sell_item.errors.full_messages).to include('Postal code 3桁-4桁で入力してください')
       end
       it 'postal_codeが(3つの数字)-(4つの数字)の形でないと購入できない' do
         @sell_item.postal_code = '1234-567'
@@ -68,7 +68,7 @@ RSpec.describe BuyDelivery, type: :model do
       it 'telの文字数が12以上だと購入できない' do
         @sell_item.tel = '090123456789'
         @sell_item.valid?
-        expect(@sell_item.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')
+        expect(@sell_item.errors.full_messages).to include('Tel -(ハイフン)を入力しないでください')
       end
       it 'user_idが無い場合は購入できない' do
         @sell_item.user_id = ''
