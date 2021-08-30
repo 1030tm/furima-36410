@@ -1,6 +1,6 @@
 class BuysController < ApplicationController
   before_action :sold_out_item, only: [:index]
-  
+
   def index
     @item = Item.find(params[:item_id])
     @sell_item = BuyDelivery.new
@@ -19,12 +19,15 @@ class BuysController < ApplicationController
   end
 
   private
+
   def sell_item_params
-    params.require(:buy_delivery).permit(:user_id, :item_id, :postal_code, :consignor_id, :city, :address, :building, :tel, :token).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:buy_delivery).permit(:user_id, :item_id, :postal_code, :consignor_id, :city, :address, :building, :tel, :token).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: params[:token],

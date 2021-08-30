@@ -1,6 +1,6 @@
 class BuyDelivery
   include ActiveModel::Model
-  
+
   attr_accessor :user_id, :item_id,
                 :postal_code, :consignor_id, :city, :address, :building, :tel, :buy_id,
                 :token
@@ -24,6 +24,7 @@ class BuyDelivery
 
   def save
     buy = Buy.create(user_id: user_id, item_id: item_id)
-    Delivery.create(postal_code: postal_code, consignor_id: consignor_id, city: city, address: address, building: building, tel: tel, buy_id: buy.id)
+    Delivery.create(postal_code: postal_code, consignor_id: consignor_id, city: city, address: address, building: building,
+                    tel: tel, buy_id: buy.id)
   end
 end
