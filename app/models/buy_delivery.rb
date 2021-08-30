@@ -2,7 +2,8 @@ class BuyDelivery
   include ActiveModel::Model
   
   attr_accessor :user_id, :item_id,
-                :postal_code, :consignor_id, :city, :address, :building, :tel, :buy_id
+                :postal_code, :consignor_id, :city, :address, :building, :tel, :buy_id,
+                :token
 
   with_options presence: true do
     validates :user_id
@@ -14,7 +15,9 @@ class BuyDelivery
     validates :city
     validates :address
     validates :tel, format: { with: /\A\d{10,11}\z/, message: '-(ハイフン)を入力しないでください' }, length: { maximum: 11 }
-    
+
+    # --- クレジットカード情報 ---
+    validates :token
   end
   validate :buy_id
   validate :building
