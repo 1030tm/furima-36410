@@ -2,7 +2,7 @@ class BuyDelivery
   include ActiveModel::Model
 
   attr_accessor :user_id, :item_id,
-                :postal_code, :consignor_id, :city, :address, :building, :tel, :buy_id,
+                :postal_code, :consignor_id, :city, :address, :building, :tel,
                 :token
 
   with_options presence: true do
@@ -19,8 +19,6 @@ class BuyDelivery
     # --- クレジットカード情報 ---
     validates :token
   end
-  validate :buy_id
-  validate :building
 
   def save
     buy = Buy.create(user_id: user_id, item_id: item_id)

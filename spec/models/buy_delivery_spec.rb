@@ -5,7 +5,7 @@ RSpec.describe BuyDelivery, type: :model do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
     @sell_item = FactoryBot.build(:buy_delivery, user_id: user.id, item_id: item.id)
-    sleep 0.5
+    sleep 1.0
   end
 
   describe '商品購入' do
@@ -84,6 +84,16 @@ RSpec.describe BuyDelivery, type: :model do
         @sell_item.token = ''
         @sell_item.valid?
         expect(@sell_item.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'telが9桁以下だと登録できないこと' do
+        @sell_item.tel = '12345678'
+        @sell_item.valid?
+        expect(@sell_item.errors.full_messages).to include('Tel -(ハイフン)を入力しないでください')
+      end
+      it 'telが電話番号が半角数字のみでないと登録できないこと' do
+        @sell_item.tel = '０１２３４５６７８９'
+        @sell_item.valid?
+        expect(@sell_item.errors.full_messages).to include('Tel -(ハイフン)を入力しないでください')
       end
     end
   end
