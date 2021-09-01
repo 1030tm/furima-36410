@@ -14,7 +14,6 @@ class BuysController < ApplicationController
       @sell_item.save
       redirect_to root_path
     else
-      @sell_item = @sell_item.new
       render :index
     end
   end
