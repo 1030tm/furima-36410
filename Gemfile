@@ -72,3 +72,5 @@ gem 'payjp'
 gem "aws-sdk-s3", require: false
 
 gem "rails_12factor", group: :production
+
+gem 'rails-i18n'
